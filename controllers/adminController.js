@@ -147,9 +147,13 @@ const editUserLoad = async (req,res) => {
 
 const updateUser=async(req,res)=>{
 try {
+  const name = req.body.name;
+  if(name.trim().length==0){
+    res.redirect('/admin/dashboard')
+  }else{
  const userData=await User.findByIdAndUpdate({_id:req.body.id},{$set:{name:req.body.name,email:req.body.email,mob:req.body.mob}})
   res.redirect('/admin/dashboard')
-
+}
 } catch (error) {
   console.log(error.message);
   
